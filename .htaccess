@@ -1,0 +1,11 @@
+<Files lod.py>                                                                                                                                                                                                                    
+    SetHandler wsgi-script                                                                                                                                                                                                        
+    Options +ExecCGI                                                                                                                                                                                                              
+</Files>                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                  
+RewriteEngine on                                                                                                                                                                                                                  
+RewriteBase /                                                                                                                                                                                                                     
+RewriteCond %{REQUEST_URI} !^/robots.txt                                                                                                                                                                                          
+RewriteCond %{REQUEST_URI} !^/static                                                                                                                                                                                              
+RewriteCond %{REQUEST_URI} !^(/.*)+lod.py                                                                                                                                                                                         
+RewriteRule ^(.*)$ lod.py/$1 [PT] 
