@@ -231,7 +231,7 @@ Usage: isbn <ISBN>
         
     def _openlibrary_lookup(self):
         data=self.get(self.URL_OPENLIBRARY % self.isbn, mode="raw")
-        data=simplejson.loads(data.replace('mycallback(','')[:-2])
+        data=json.loads(data.replace('mycallback(','')[:-2])
         self["openlibrary"] = data
 
     def _ryerson_lookup(self):

@@ -43,7 +43,7 @@ Usage: dbpedia.py <dbpedia_identifier>
     ''' 
     #% globals()
 
-    DBPEDIA_URL = "http://dbpedia.org/data/%s.json"
+    DBPEDIA_URL = "http://dbpedia.org/data/%s.jsond"
 
     namespaces = {  'http://www.w3.org/2003/01/geo/wgs84_pos#' : 'pos', 
                     'http://dbpedia.org/property/': 'dbpediaprop',
@@ -166,6 +166,7 @@ Usage: dbpedia.py <dbpedia_identifier>
                 for name in data[item]:
                     if u'value' in data[item][name][0]:
                         self._add(dbpedia_identifier, data[item][name][0][u'value'], name.split('/')[-1].split('#')[-1])
+                    #print(data[item][name])
 
         return(True)
 

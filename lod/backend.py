@@ -36,7 +36,7 @@ except:
 
 try:
     import socket
-    socket.setdefaulttimeout(49300)
+    socket.setdefaulttimeout(349300)
 except:
     pass
 
@@ -75,8 +75,9 @@ class Backend(dict):
             self.log.debug("Getting %s (via %s)" % (url, self.backend))
         headers = {'Accept' : '*/*'}
         req = urllib2.Request(url=url, headers = headers)
+
         try:
-            response = urllib2.urlopen(req, timeout=1000 )
+            response = urllib2.urlopen(req, timeout=98000)
         except:
             self.http_retries-=1
             if self.debug:
@@ -86,9 +87,7 @@ class Backend(dict):
                 return(self._get_nocache(url, mode))
             else:
                 sys.stderr.write("Too manny http errors, giving up.")
-                #sys.exit(-1)
                 return(False)
-
         if response.getcode() == 200:
             header = response.info().dict
             if "content-length" in header:
@@ -164,7 +163,8 @@ class Backend(dict):
         if self.pymongo["database"] in self.pymongo["conn"].database_names():
             if self.pymongo["collection"] in self.pymongo["conn"][self.pymongo["database"]].collection_names():
                 conn = self.pymongo["conn"][self.pymongo["database"]][self.pymongo["collection"]]
-                data = conn.find_one({"id" : myhash})
+                #data = conn.find_one({"id" : myhash})
+                data = None
                 if (data == None):
                     self.log.debug("No data in mongodb for %s, procedeeding to fetch data." % url)
                     conn = self.pymongo["conn"][self.pymongo["database"]][self.pymongo["collection"]]

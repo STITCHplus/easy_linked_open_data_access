@@ -133,7 +133,7 @@ Usage: dbpedia_nl.py <dbpedia_nl_identifier>
                 data=json.loads(data)            
             if data["response"]["numFound"] > 0:
                 identifier = data["response"]["docs"][0]["id"].split('/')[-1]
-                record = DBPedia([identifier], backend=self.backend, log_path=self.log_path, debug=self.debug)
+                record = DBPedia([identifier.replace('json', 'jsond')], backend=self.backend, log_path=self.log_path, debug=self.debug)
                 record.execute()
                 self[record.keys()[0]] = record[record.keys()[0]]
                 s=self[record.keys()[0]].pop("sameAs")[0]
