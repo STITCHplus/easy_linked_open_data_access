@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-## 
+##
 ## Copyright (C) 2011-2012 National library of the Netherlands, Willem Jan Faber <willemjanfaber@fe2.nl>.
 ##
 ## This program is free software; you can redistribute it and/or modify
@@ -11,7 +11,7 @@
 ##
 ## This program is distributed in the hope that it will be useful,
 ## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 ## GNU General Public License for more details.
 ##
 ## You should have received a copy of the GNU General Public License
@@ -138,12 +138,14 @@ Usage: dbpedia.py <dbpedia_identifier>
             return(False)
 
         resource = ".".join(url.replace('/data/', '/resource/').split('.')[:-1])
+
         if resource in data:
             if "http://dbpedia.org/ontology/wikiPageRedirects" in data[resource]:
                 nurl = data[resource]["http://dbpedia.org/ontology/wikiPageRedirects"][0]["value"]
                 if self.debug:
                     self.log.info("Got redirected from %s to %s while parsing record" % (url, nurl)) 
                 return(nurl)
+
         for item in data:
             if resource == item:
                 for i in data[item]:
@@ -162,7 +164,9 @@ Usage: dbpedia.py <dbpedia_identifier>
                                 self._add(dbpedia_identifier, name["value"], i.split('/')[-1].split('#')[-1])
             else:
                 for name in data[item]:
-                    self._add(dbpedia_identifier, item, name.split('/')[-1].split('#')[-1])
+                    if u'value' in data[item][name][0]:
+                        self._add(dbpedia_identifier, data[item][name][0][u'value'], name.split('/')[-1].split('#')[-1])
+
         return(True)
 
 def _usage(stream):

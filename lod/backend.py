@@ -70,6 +70,7 @@ class Backend(dict):
             self.backends[item]["get"] = getattr(self, "_get_" + item)
 
     def _get_nocache(self, url, mode=""):
+        url = url.replace('%2C', ',')
         if self.debug:
             self.log.debug("Getting %s (via %s)" % (url, self.backend))
         headers = {'Accept' : '*/*'}
@@ -124,6 +125,7 @@ class Backend(dict):
         pass
 
     def _get_pymongo(self, url, mode):
+        url = url.replace('%2C', ',')
         if self.pymongo["broken"]:
             return(self._get_nocache(url, mode))
 
