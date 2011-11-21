@@ -37,7 +37,8 @@ sys.path.append(os.path.dirname(__file__))
 application = Flask("dbpedia")
 application.debug = False
 
-PYMONGO_HOST = "127.0.0.1"
+PYMONGO_HOST = "192.87.165.3"
+#PYMONGO_HOST = "127.0.0.1"
 BASEURL="http://data.kbresearch.nl/"
 
 @application.route('/')
@@ -264,6 +265,7 @@ def lod(identifier = None):
                                         if data[space][name].lower().find('.jpg') > -1 or \
                                             data[space][name].lower().find('_thumb') > -1 or \
                                             data[space][name].lower().find('img') > -1 or \
+                                            data[space][name].lower().find('.png') > -1 or \
                                             data[space][name].lower().find('.svg') > -1 or \
                                             data[space][name].lower().find('.gif') > -1:
                                             if data[space][name].lower().find('_thumb') > -1:
@@ -279,6 +281,7 @@ def lod(identifier = None):
                                             if type(item) == unicode or type(item) == str:
                                                 if item.lower().find('.jpg') > -1 or \
                                                     item.lower().find('_thumb') > -1 or \
+                                                    item.lower().find('.png') > -1 or \
                                                     item.lower().find('img') > -1 or \
                                                     item.lower().find('.svg') > -1 or \
                                                     item.lower().find('.gif') > -1:
